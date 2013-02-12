@@ -1,9 +1,13 @@
 package cake.database
 
+trait Database {
+  def query (search: String): String
+}
+
 class DBI protected (
   val dsn:      String,
   val username: String,
-  val password: String) {
+  val password: String) extends Database {
   def query (search: String): String = "found " + search
   override def toString = List(dsn, username, password).mkString(", ")
 }
