@@ -5,6 +5,7 @@ class DBI protected (
   val username: String,
   val password: String) {
   def query (search: String): String = "found " + search
+  override def toString = List(dsn, username, password).mkString(", ")
 }
 
 object DBI {
