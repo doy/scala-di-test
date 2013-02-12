@@ -11,15 +11,11 @@ trait HasApplication {
 trait HasDatabase {
   type DatabaseType
   val database: DatabaseType with IDatabase
-  trait IDatabase {
-    def query (search: String): String
-  }
+  trait IDatabase extends cake.database.Database
 }
 
 trait HasLogger {
   type LoggerType
   val logger: LoggerType with ILogger
-  trait ILogger {
-    def log (msg: String): Unit
-  }
+  trait ILogger extends cake.logger.Logger
 }
