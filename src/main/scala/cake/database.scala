@@ -5,9 +5,9 @@ trait Database {
 }
 
 class DBI protected (
-  val dsn:      String,
-  val username: String,
-  val password: String) extends Database {
+  dsn:      String,
+  username: String,
+  password: String) extends Database {
   def query (search: String): String = "found " + search
   override def toString = List(dsn, username, password).mkString(", ")
 }
