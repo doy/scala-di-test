@@ -7,7 +7,11 @@ trait HasLogger extends cake.services.HasLogger {
 
 trait HasDatabase extends cake.services.HasDatabase {
   type DatabaseType = Database
-  class Database(dsn: String, username: String, password: String) extends cake.database.DBI(dsn, username, password) with IDatabase
+  class Database protected (dsn: String, username: String, password: String) extends cake.database.DBI(dsn, username, password) with IDatabase
+  object Database {
+    def connect(dsn: String, username: String, password: String) =
+      new Database(dsn, username, password)
+  }
 }
 
 trait HasApplication extends cake.services.HasApplication {
@@ -24,8 +28,7 @@ class Container (
   ) extends HasApplication with HasLogger with HasDatabase {
   lazy val application = new Application
   lazy val logger      = new Logger(logFileName)
-  // val database    = Database.connect("dbi:mysql:myapp", "doy", "blah")
-  lazy val database    = new Database(dsn, username, password)
+  lazy val database    = Database.connect(dsn, username, password)
 }
 
 object MyApp extends Application {
