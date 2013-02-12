@@ -16,9 +16,35 @@ trait HasApplication extends cake.services.HasApplication {
   class Application extends cake.application.Application(logger, database) with IApplication
 }
 
-object Container extends HasApplication with HasLogger with HasDatabase {
-  val logger      = new Logger("out.log")
+class Container (
+  logFileName: String = "out.log",
+  dsn:         String = "dbi:mysql:myapp",
+  username:    String = "doy",
+  password:    String = "blah"
+  ) extends HasApplication with HasLogger with HasDatabase {
+  val logger      = new Logger(logFileName)
   // val database    = Database.connect("dbi:mysql:myapp", "doy", "blah")
-  val database    = new Database("dbi:mysql:myapp", "doy", "blah")
+  val database    = new Database(dsn, username, password)
   val application = new Application
+}
+
+object MyApp extends Application {
+  val container1 = new Container
+  println("running container 1")
+  container1.application.run
+  println("done with container 1")
+
+  val container2 = new Container(logFileName = "other.log")
+  println("running container 2")
+  container2.application.run
+  println("done with container 2")
+
+  val container3 = new Container(
+    dsn      = "dbi:SQLite::memory:",
+    username = "",
+    password = ""
+  )
+  println("running container 3")
+  container3.application.run
+  println("done with container 3")
 }
