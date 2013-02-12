@@ -31,7 +31,7 @@ class Container (
   lazy val database    = Database.connect(dsn, username, password)
 }
 
-object MyApp extends Application {
+object MyApp extends App {
   val container1 = new Container
   println("running container 1")
   container1.application.run
