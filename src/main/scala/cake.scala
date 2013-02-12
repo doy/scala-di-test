@@ -2,18 +2,18 @@ package cake
 
 trait HasLogger extends cake.services.HasLogger {
   type LoggerType = Logger
-  class Logger(logFileName: String) extends cake.logger.FileLogger(logFileName)
+  class Logger(logFileName: String) extends cake.logger.FileLogger(logFileName) with ILogger
 }
 
 trait HasDatabase extends cake.services.HasDatabase {
   type DatabaseType = Database
-  class Database(dsn: String, username: String, password: String) extends cake.database.DBI(dsn, username, password)
+  class Database(dsn: String, username: String, password: String) extends cake.database.DBI(dsn, username, password) with IDatabase
 }
 
 trait HasApplication extends cake.services.HasApplication {
   this: cake.HasLogger with cake.HasDatabase =>
   type ApplicationType = Application
-  class Application extends cake.application.Application(logger, database)
+  class Application extends cake.application.Application(logger, database) with IApplication
 }
 
 object Container extends HasApplication with HasLogger with HasDatabase {

@@ -8,6 +8,7 @@ class Application (val logger: FileLogger, val dbh: DBI) {
     logger.log("starting")
     logger.log("got a dbh: " +
       List(dbh.dsn, dbh.username, dbh.password).mkString(", "))
+    logger.log(dbh.query("foo"))
     logger.log("ending")
   }
 }

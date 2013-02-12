@@ -5,6 +5,7 @@ class DBI (
   val dsn:      String,
   val username: String,
   val password: String) {
+  def query (search: String): String = "found " + search
 }
 
 // object DBI {
