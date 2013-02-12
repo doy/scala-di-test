@@ -22,10 +22,10 @@ class Container (
   username:    String = "doy",
   password:    String = "blah"
   ) extends HasApplication with HasLogger with HasDatabase {
-  val logger      = new Logger(logFileName)
+  lazy val application = new Application
+  lazy val logger      = new Logger(logFileName)
   // val database    = Database.connect("dbi:mysql:myapp", "doy", "blah")
-  val database    = new Database(dsn, username, password)
-  val application = new Application
+  lazy val database    = new Database(dsn, username, password)
 }
 
 object MyApp extends Application {
