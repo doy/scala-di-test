@@ -1,4 +1,4 @@
-package cake.logger
+package myapp.logger
 
 trait Logger {
   def log (msg: String): Unit

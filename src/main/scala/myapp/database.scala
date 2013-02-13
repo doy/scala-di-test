@@ -1,4 +1,4 @@
-package cake.database
+package myapp.database
 
 trait Database {
   def query (search: String): String
@@ -7,7 +7,8 @@ trait Database {
 class DBI protected (
   dsn:      String,
   username: String,
-  password: String) extends Database {
+  password: String
+) extends Database {
   def query (search: String): String = "found " + search
   override def toString = List(dsn, username, password).mkString(", ")
 }

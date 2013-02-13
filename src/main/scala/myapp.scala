@@ -1,4 +1,4 @@
-import cake.Container
+import myapp.cake.container.Container
 
 object MyApp extends App {
   val container1 = new Container
