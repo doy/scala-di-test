@@ -6,7 +6,7 @@ import myapp.logger.Logger
 trait HasApplication {
   type ApplicationType
 
-  val application: ApplicationType with ApplicationService
+  def application (): ApplicationType with ApplicationService
 
   trait ApplicationService {
     def run (): Unit
@@ -16,7 +16,7 @@ trait HasApplication {
 trait HasDatabase {
   type DatabaseType
 
-  val database: DatabaseType with DatabaseService
+  def database (): DatabaseType with DatabaseService
 
   trait DatabaseService extends Database
 }
@@ -24,7 +24,7 @@ trait HasDatabase {
 trait HasLogger {
   type LoggerType
 
-  val logger: LoggerType with LoggerService
+  def logger (): LoggerType with LoggerService
 
   trait LoggerService extends Logger
 }

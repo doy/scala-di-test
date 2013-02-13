@@ -42,7 +42,8 @@ class Container (
   username:    String = "doy",
   password:    String = "blah"
 ) extends HasApplication with HasLogger with HasDatabase {
-  lazy val application = new Application
-  lazy val logger      = new Logger(logFileName)
-  lazy val database    = Database.connect(dsn, username, password)
+  def application = new Application
+  // def logger   = new Logger(logFileName) // non-singleton
+  lazy val logger = new Logger(logFileName) // singleton
+  def database    = Database.connect(dsn, username, password)
 }
