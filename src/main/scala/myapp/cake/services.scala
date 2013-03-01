@@ -1,30 +1,32 @@
-package myapp.cake.services
+package myapp.cake
 
-import myapp.database.Database
-import myapp.logger.Logger
+object services {
+  import database.Database
+  import logger.Logger
 
-trait HasApplication {
-  type ApplicationType
+  trait HasApplication {
+    type ApplicationType
 
-  def application (): ApplicationType with ApplicationService
+    def application: ApplicationType with ApplicationService
 
-  trait ApplicationService {
-    def run (): Unit
+    trait ApplicationService {
+      def run: Unit
+    }
   }
-}
 
-trait HasDatabase {
-  type DatabaseType
+  trait HasDatabase {
+    type DatabaseType
 
-  def database (): DatabaseType with DatabaseService
+    def database: DatabaseType with DatabaseService
 
-  trait DatabaseService extends Database
-}
+    trait DatabaseService extends Database
+  }
 
-trait HasLogger {
-  type LoggerType
+  trait HasLogger {
+    type LoggerType
 
-  def logger (): LoggerType with LoggerService
+    def logger: LoggerType with LoggerService
 
-  trait LoggerService extends Logger
+    trait LoggerService extends Logger
+  }
 }

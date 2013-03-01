@@ -1,7 +1,7 @@
-package myapp.application
+package myapp
 
-import myapp.logger.Logger
-import myapp.database.Database
+import logger.Logger
+import database.Database
 
 class MyApp (logger: Logger, dbh: Database) {
   def run {

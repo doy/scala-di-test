@@ -1,14 +1,26 @@
-package myapp.cake.container
+package myapp.cake
 
-import myapp.cake.services
-import myapp.logger.FileLogger
-import myapp.database.DBI
-import myapp.application.MyApp
+import database.DBI
+import logger.FileLogger
+
+import myapp.MyApp
+
+class Container (
+  logFileName: String = "out.log",
+  dsn:         String = "dbi:mysql:myapp",
+  username:    String = "doy",
+  password:    String = "blah"
+) extends HasApplication with HasLogger with HasDatabase {
+  def application = new Application
+  // def logger   = new Logger(logFileName) // non-singleton
+  lazy val logger = new Logger(logFileName) // singleton
+  def database    = Database.connect(dsn, username, password)
+}
 
 trait HasLogger extends services.HasLogger {
   type LoggerType = Logger
 
-  class Logger(
+  class Logger (
     logFileName: String
   ) extends FileLogger(logFileName) with LoggerService
 }
@@ -34,16 +46,4 @@ trait HasApplication extends services.HasApplication {
   type ApplicationType = Application
 
   class Application extends MyApp(logger, database) with ApplicationService
-}
-
-class Container (
-  logFileName: String = "out.log",
-  dsn:         String = "dbi:mysql:myapp",
-  username:    String = "doy",
-  password:    String = "blah"
-) extends HasApplication with HasLogger with HasDatabase {
-  def application = new Application
-  // def logger   = new Logger(logFileName) // non-singleton
-  lazy val logger = new Logger(logFileName) // singleton
-  def database    = Database.connect(dsn, username, password)
 }

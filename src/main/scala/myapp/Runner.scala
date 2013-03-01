@@ -1,6 +1,8 @@
-import myapp.cake.container.Container
+package myapp
 
-object MyApp extends App {
+import myapp.cake.Container
+
+object Runner extends App {
   val container1 = new Container
   println("running container 1")
   container1.application.run
